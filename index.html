@@ -37,19 +37,75 @@ body {
 /* ── HEADER ── */
 .header {
   flex-shrink: 0;
-  background: var(--white);
-  padding: 8px 16px 8px;
-  border-bottom: 1.5px solid var(--border);
-  box-shadow: 0 2px 8px rgba(15,23,42,0.05);
+  background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 70%, #3B82F6 100%);
+  padding: 10px 16px 10px;
+  box-shadow: 0 4px 16px rgba(30,58,138,0.30);
 }
 .h-top {
   display: flex; align-items: center; gap: 8px;
   margin-bottom: 6px;
 }
-.h-titles { display: none; } /* 앱 이름 제거 */
+.h-bottom-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 0;
+}
+.h-bottom-row .h-fixed-row { flex: 1; margin-bottom: 0; }
+.h-titles { display: none; }
 .app-sub { display: none; }
 .app-name { display: none; }
-.h-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-left: auto; }
+.h-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+/* 헤더 내 고정환율 바 — 흰색 계열 */
+.h-fixed-row {
+  display: flex; align-items: center; gap: 8px;
+  background: transparent; border-radius: 0;
+  padding: 4px 0; border: none;
+  border-bottom: 1.5px solid rgba(255,255,255,0.35);
+  margin-bottom: 0;
+}
+.rb-label { font-size: 12px; color: rgba(255,255,255,0.85); font-weight: 700; white-space: nowrap; }
+.fixed-stepper { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: flex-end; }
+.step-input {
+  width: 80px; border: none; background: transparent;
+  font-size: 12px; font-weight: 700; color: #fff;
+  text-align: center; outline: none; font-family: 'Pretendard', sans-serif;
+}
+.step-input::placeholder { color: rgba(255,255,255,0.4); }
+.step-input::-webkit-outer-spin-button, .step-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.step-btn {
+  width: 24px; height: 24px; border-radius: 6px;
+  background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.35);
+  color: #fff; font-size: 9px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.step-btn:active { background: rgba(255,255,255,0.35); }
+
+/* 커스텀 드롭다운 */
+.custom-sel {
+  display: flex; align-items: center; gap: 8px; cursor: pointer;
+}
+.custom-sel #customSelText {
+  font-size: 22px; font-weight: 900; color: #fff; letter-spacing: -0.5px;
+}
+.custom-options {
+  display: none; position: absolute; top: calc(100% + 8px); left: 0;
+  background: #fff; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.18); z-index: 1000; min-width: 200px;
+}
+.custom-options.open { display: block; }
+.custom-option {
+  padding: 13px 18px; font-size: 16px; font-weight: 700; color: #0F172A;
+  cursor: pointer; transition: background 0.1s;
+}
+.custom-option:active, .custom-option:hover { background: #EEF2FF; color: #2563EB; }
+
+/* 갱신 버튼 흰색 */
+.ref-btn {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.30);
+  color: #fff; font-size: 15px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
 
 /* 환율 pill — 우상단 */
 .rate-pill {
@@ -115,19 +171,21 @@ body {
 .h-country-row { margin-bottom: 12px; }
 .country-sel-wrap { position: relative; }
 .country-sel {
-  width: 100%; appearance: none; -webkit-appearance: none;
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: 100px; color: var(--text);
-  font-size: 13px; font-weight: 700;
-  padding: 6px 28px 6px 12px;
+  width: auto; appearance: none; -webkit-appearance: none;
+  background: transparent; border: none;
+  color: #fff;
+  font-size: 22px; font-weight: 900;
+  letter-spacing: -0.5px; padding: 0;
   cursor: pointer; outline: none;
   font-family: 'Pretendard', sans-serif;
 }
-.country-sel option { background: #ffffff; color: #0F172A; }
+.country-sel option { background: #1E3A8A; color: #fff; font-size: 16px; }
+.country-sel-wrap {
+  position: relative; display: flex; align-items: center; gap: 6px;
+}
 .country-arr {
-  position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
-  font-size: 10px; color: var(--muted); pointer-events: none;
+  font-size: 13px; color: rgba(255,255,255,0.7); pointer-events: none;
+  font-weight: 900; flex-shrink: 0; position: static; transform: none;
 }
 
 /* 오프라인 배지 */
@@ -140,27 +198,6 @@ body {
 .h-rate-row { display: flex; align-items: center; gap: 6px; }
 
 /* 고정 환율 행 */
-.h-fixed-row {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--bg); border-radius: 100px;
-  padding: 5px 10px 5px 14px; border: 1.5px solid var(--border);
-  margin-bottom: 0;
-}
-.rb-label { font-size: 11px; color: var(--sub); font-weight: 700; white-space: nowrap; }
-.fixed-stepper { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: flex-end; }
-.step-input {
-  width: 80px; border: none; background: transparent;
-  font-size: 14px; font-weight: 800; color: var(--text);
-  text-align: center; outline: none; font-family: 'Pretendard', sans-serif;
-}
-.step-input::-webkit-outer-spin-button, .step-input::-webkit-inner-spin-button { -webkit-appearance: none; }
-.step-btn {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--white); border: 1.5px solid var(--border);
-  color: var(--blue); font-size: 10px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.step-btn:active { background: var(--blue-dim); }
 
 /* ── CONVERTER CARD WRAPPER ── */
 .conv-card-wrap {
@@ -195,8 +232,8 @@ body {
 /* 입력/출력 섹션 */
 .amt-cards { display: flex; flex-direction: column; }
 .amt-row {
-  padding: 14px 20px;
-  height: 100px; display: flex; flex-direction: column;
+  padding: 16px 20px;
+  height: 120px; display: flex; flex-direction: column;
 }
 .amt-row.top { border-radius: 22px 22px 0 0; }
 .amt-row.bot { border-radius: 0 0 22px 22px; background: #F8FAFF; }
@@ -208,7 +245,7 @@ body {
 .swap-btn {
   position: absolute;
   right: 16px;
-  top: 100px;
+  top: 120px;
   transform: translateY(-50%);
   z-index: 10;
   width: 36px; height: 36px; border-radius: 50%;
@@ -226,24 +263,22 @@ body {
   display: flex; align-items: center;
 }
 .amt-val {
-  font-size: 40px; font-weight: 900; color: var(--text); letter-spacing: -1.5px;
+  font-size: 36px; font-weight: 900; color: var(--text); letter-spacing: -1.2px;
   line-height: 1.05; text-align: right; white-space: nowrap;
-  overflow: hidden; text-overflow: ellipsis;
+  overflow: hidden; text-overflow: ellipsis; min-width: 0;
 }
 .out-val { color: var(--blue); }
 .amt-korean {
   font-size: 13px; color: var(--blue); font-weight: 700;
   margin-top: 2px; text-align: right; white-space: nowrap;
   overflow: hidden; text-overflow: ellipsis; opacity: 0.75;
+  padding-right: 46px;
 }
 .amt-note { font-size: 12px; color: var(--muted); margin-top: 2px; text-align: right; }
 
 /* ── QUICK ── */
 .quick-wrap { flex-shrink: 0; padding: 0 16px 6px; }
-.q-label {
-  font-size: 13px; color: var(--muted); font-weight: 800;
-  letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; padding-top: 2px;
-}
+.q-label { display: none; }
 .q-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 5px; }
 .q-btn {
   padding: 9px 2px; border-radius: 11px; font-size: 15px; font-weight: 700;
@@ -330,22 +365,41 @@ body {
 <body>
 
 <div class="header">
-  <!-- 한 줄: 타이틀 + 드롭다운 + pill + 갱신 -->
+  <!-- 1행: 커스텀 드롭다운 -->
   <div class="h-top">
-    <div class="h-titles">
-      <div class="app-sub" id="rateStatusLabel">LIVE RATE</div>
-      <div class="app-name">Exchange</div>
-    </div>
-    <!-- 나라 선택 드롭다운 (중앙) -->
-    <div class="country-sel-wrap" style="flex:1; margin: 0 8px;">
-      <select class="country-sel" id="countrySel" onchange="selectCountry(this.value)">
+    <div class="country-sel-wrap" style="flex:1; position:relative;">
+      <!-- 숨김 select (JS 호환용) -->
+      <select class="country-sel" id="countrySel" onchange="selectCountry(this.value)" style="display:none;">
         <option value="vnd">🇻🇳 베트남 동</option>
         <option value="usd">🇺🇸 미국 달러</option>
         <option value="cny">🇨🇳 중국 위안</option>
         <option value="jpy">🇯🇵 일본 엔</option>
         <option value="eur">🇪🇺 유로</option>
       </select>
-      <span class="country-arr">▼</span>
+      <!-- 커스텀 드롭다운 -->
+      <div class="custom-sel" id="customSel" onclick="toggleDropdown()">
+        <span id="customSelText">🇻🇳 베트남 동</span>
+        <span class="country-arr">▼</span>
+      </div>
+      <div class="custom-options" id="customOptions">
+        <div class="custom-option" onclick="pickCountry('vnd','🇻🇳 베트남 동')">🇻🇳 베트남 동</div>
+        <div class="custom-option" onclick="pickCountry('usd','🇺🇸 미국 달러')">🇺🇸 미국 달러</div>
+        <div class="custom-option" onclick="pickCountry('cny','🇨🇳 중국 위안')">🇨🇳 중국 위안</div>
+        <div class="custom-option" onclick="pickCountry('jpy','🇯🇵 일본 엔')">🇯🇵 일본 엔</div>
+        <div class="custom-option" onclick="pickCountry('eur','🇪🇺 유로')">🇪🇺 유로</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2행: 환율 조정 바 + pill + 갱신버튼 -->
+  <div class="h-bottom-row">
+    <div class="h-fixed-row" id="hFixedRow">
+      <span class="rb-label">1,000 KRW =</span>
+      <div class="fixed-stepper">
+        <button class="step-btn" onclick="stepFixed(-1)">▼</button>
+        <input class="step-input" type="number" id="rbInput" placeholder="0.00" inputmode="decimal" oninput="applyFixed()"/>
+        <button class="step-btn" onclick="stepFixed(1)">▲</button>
+      </div>
     </div>
     <div class="h-right">
       <div class="rate-pill" id="ratePill">
@@ -362,20 +416,14 @@ body {
     </div>
   </div>
 
-  <!-- 환율 조정 바 + 시간 -->
-  <div class="h-fixed-row" id="hFixedRow">
-    <span class="rb-label">1,000 KRW =</span>
-    <div class="fixed-stepper">
-      <button class="step-btn" onclick="stepFixed(-1)">▼</button>
-      <input class="step-input" type="number" id="rbInput" placeholder="0.00" inputmode="decimal" oninput="applyFixed()"/>
-      <button class="step-btn" onclick="stepFixed(1)">▲</button>
-    </div>
-  </div>
-  <div class="h-rate-time" id="sTime2" style="text-align:right; padding-bottom:2px; min-height:14px;"></div>
-
-  <!-- 숨김 요소 (JS 참조용) -->
+  <!-- 숨김 요소 -->
   <div id="hRateRow" style="display:none;">
-    <span id="sRate"></span><span id="sTime"></span><span id="rbBadge"></span>
+    <span id="sRate"></span><span id="sTime"></span>
+    <span id="rateStatusLabel"></span><span id="rbBadge"></span>
+  </div>
+  <div id="sTime2" style="display:none;"></div>
+  <div class="h-titles" style="display:none;">
+    <div class="app-sub"></div><div class="app-name"></div>
   </div>
 </div>
 
@@ -437,6 +485,23 @@ body {
 <div id="_toast"></div>
 
 <script>
+/* 커스텀 드롭다운 */
+function toggleDropdown() {
+  const opts = $('customOptions');
+  opts.classList.toggle('open');
+}
+function pickCountry(val, label) {
+  $('customSelText').textContent = label;
+  $('customOptions').classList.remove('open');
+  $('countrySel').value = val;
+  selectCountry(val);
+}
+// 외부 클릭시 닫기
+document.addEventListener('click', e => {
+  const wrap = document.querySelector('.country-sel-wrap');
+  if (wrap && !wrap.contains(e.target)) $('customOptions').classList.remove('open');
+});
+
 /* 나라별 설정 */
 const CFG = {
   vnd: {
@@ -460,13 +525,13 @@ const CFG = {
     }
   },
   cny: {
-    code:'CNY', name:'중국 위안', shortName:'위안', flag:'cn', sym:'¥',
+    code:'CNY', name:'중국 위안', shortName:'위안', flag:'cn', sym:'元',
     defFixed:0.00528, stepDelta:0.00001, decimals:2, rateDecimals:5,
-    revLabel: r => `1,000₩ = ¥${(1000*r).toFixed(2)}`,
+    revLabel: r => `1,000₩ = 元${(1000*r).toFixed(2)}`,
     rateLabel: r => `실시간: 1 KRW = ${r.toFixed(5)} CNY`,
     quick: {
       krw:   { sub:10000, subLb:'1만', amts:[10000,50000,100000],  lbs:['1만','5만','10만'] },
-      local: { sub:10,    subLb:'¥10', amts:[10,50,100],           lbs:['¥10','¥50','¥100'] }
+      local: { sub:10,    subLb:'元10', amts:[10,50,100],           lbs:['元10','元50','元100'] }
     }
   },
   jpy: {
@@ -578,6 +643,9 @@ function selectCountry(c) {
   haptic(10);
   S.country=c; S.inp='';
   $('countrySel').value=c;
+  // 커스텀 드롭다운 텍스트 동기화
+  const opt = document.querySelector(`.custom-option[onclick*="'${c}'"]`);
+  if (opt) $('customSelText').textContent = opt.textContent;
   $('rbInput').step=cfg().stepDelta*1000;
   $('rbInput').value=fmtFixed(S.fixed[c]*1000);
   renderAll();
@@ -597,7 +665,7 @@ function setMode(m) {
   const inp=$('rbInput');
   const btns=document.querySelectorAll('.step-btn');
   if (m==='fixed') {
-    inp.disabled=false; inp.style.opacity='1';
+    inp.disabled=false; inp.style.opacity='1'; inp.style.color='#fff';
     btns.forEach(b=>{ b.disabled=false; b.style.opacity='1'; });
     $('hFixedRow').style.visibility='visible';
     inp.step=10;
@@ -607,8 +675,8 @@ function setMode(m) {
     }
     inp.value=fmtFixed(S.fixed[S.country]*1000);
   } else {
-    inp.disabled=true; inp.style.opacity='1'; inp.style.color='var(--text)';
-    btns.forEach(b=>{ b.disabled=true; b.style.opacity='0.25'; });
+    inp.disabled=true; inp.style.opacity='1'; inp.style.color='#fff';
+    btns.forEach(b=>{ b.disabled=true; b.style.opacity='0.5'; });
     $('hFixedRow').style.visibility='visible';
     inp.value=rate() ? fmtFixed(rate()*1000) : '';
   }
