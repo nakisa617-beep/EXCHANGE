@@ -17,15 +17,15 @@
   font-family: 'Pretendard', -apple-system, sans-serif;
 }
 :root {
-  --blue: #2563EB; --blue-dark: #1D4ED8; --blue-dim: rgba(37,99,235,0.08);
-  --red: #EF4444;  --red-dim: rgba(239,68,68,0.08);
-  --bg: #F1F5FB;
+  --blue: #00C4C4; --blue-dark: #00AAAA; --blue-dim: rgba(0,196,196,0.10);
+  --red: #FF5252;  --red-dim: rgba(255,82,82,0.08);
+  --bg: #F2FAFA;
   --white: #FFFFFF;
   --card: #FFFFFF;
-  --border: #E4E9F2;
-  --text: #0F172A; --sub: #64748B; --muted: #94A3B8;
-  --green: #10B981;
-  --pill-bg: #EEF2FF;
+  --border: #D4EFEF;
+  --text: #1A1A1A; --sub: #555555; --muted: #999999;
+  --green: #00C4C4;
+  --pill-bg: #E0F7F7;
 }
 html { height: 100%; background: var(--bg); }
 body {
@@ -39,9 +39,9 @@ body {
 /* ── HEADER ── */
 .header {
   flex-shrink: 0;
-  background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 70%, #3B82F6 100%);
+  background: linear-gradient(135deg, #008C8C 0%, #00C4C4 60%, #00DEDE 100%);
   padding: 10px 20px 10px 16px;
-  box-shadow: 0 4px 16px rgba(30,58,138,0.30);
+  box-shadow: 0 4px 16px rgba(0,196,196,0.35);
 }
 .h-top {
   display: flex; align-items: center; gap: 8px;
@@ -99,7 +99,7 @@ body {
   padding: 13px 18px; font-size: 16px; font-weight: 700; color: #0F172A;
   cursor: pointer; transition: background 0.1s;
 }
-.custom-option:active, .custom-option:hover { background: #EEF2FF; color: #2563EB; }
+.custom-option:active, .custom-option:hover { background: #E0F7F7; color: #00C4C4; }
 
 /* 갱신 버튼 흰색 */
 .ref-btn {
@@ -138,7 +138,7 @@ body {
   padding: 4px 20px 4px 8px; cursor: pointer; outline: none;
   font-family: 'Pretendard', sans-serif;
 }
-.pill-mode-sel option { background: #2563EB; color: #fff; }
+.pill-mode-sel option { background: #008C8C; color: #fff; }
 .pill-mode-arr {
   position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
   font-size: 7px; color: rgba(255,255,255,0.75); pointer-events: none;
@@ -303,12 +303,12 @@ body {
   -webkit-user-select: none; user-select: none;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: transform 0.08s, background 0.08s;
 }
-.n-btn:active { transform: scale(0.91); background: #EEF2FF; border-color: var(--blue); box-shadow: none; }
+.n-btn:active { transform: scale(0.91); background: #E0F7F7; border-color: var(--blue); box-shadow: none; }
 .n-btn.del { background: #FEF2F2; color: var(--red); font-size: 20px; border-color: #FECACA; }
 .n-btn.del:active { background: #FEE2E2; }
 .n-btn.ac  { background: #FEF2F2; color: var(--red); font-size: 15px; font-weight: 800; border-color: #FECACA; }
 .n-btn.ac:active  { background: #FEE2E2; }
-.n-btn.triple { background: #EEF2FF; color: var(--blue); font-size: 14px; font-weight: 800; border-color: #C7D2FE; }
+.n-btn.triple { background: #E0F7F7; color: var(--blue); font-size: 14px; font-weight: 800; border-color: #A0E0E0; }
 .n-btn.triple:active { background: var(--blue-dim); border-color: var(--blue); }
 .n-btn.save {
   background: var(--blue); color: #fff;
@@ -367,10 +367,9 @@ body {
 <body>
 
 <div class="header">
-  <!-- 1행: 커스텀 드롭다운 -->
+  <!-- 1행: 통화명 + 갱신버튼 -->
   <div class="h-top">
     <div class="country-sel-wrap" style="flex:1; position:relative;">
-      <!-- 숨김 select (JS 호환용) -->
       <select class="country-sel" id="countrySel" onchange="selectCountry(this.value)" style="display:none;">
         <option value="vnd">🇻🇳 베트남 동</option>
         <option value="usd">🇺🇸 미국 달러</option>
@@ -378,7 +377,6 @@ body {
         <option value="jpy">🇯🇵 일본 엔</option>
         <option value="eur">🇪🇺 유로</option>
       </select>
-      <!-- 커스텀 드롭다운 -->
       <div class="custom-sel" id="customSel" onclick="toggleDropdown()">
         <span id="customSelText">🇻🇳 베트남 동</span>
         <span class="country-arr">▼</span>
@@ -391,9 +389,10 @@ body {
         <div class="custom-option" onclick="pickCountry('eur','🇪🇺 유로')">🇪🇺 유로</div>
       </div>
     </div>
+    <button class="ref-btn" id="refBtn" onclick="fetchRate()">↻</button>
   </div>
 
-  <!-- 2행: 환율 조정 바 + pill + 갱신버튼 -->
+  <!-- 2행: 환율 조정 바 + pill -->
   <div class="h-bottom-row">
     <div class="h-fixed-row" id="hFixedRow">
       <span class="rb-label">1,000 KRW =</span>
@@ -414,7 +413,6 @@ body {
           <span class="pill-mode-arr">▼</span>
         </div>
       </div>
-      <button class="ref-btn" id="refBtn" onclick="fetchRate()">↻</button>
     </div>
   </div>
 
@@ -873,10 +871,6 @@ function loadHist(i) {
   if(e.country!==S.country) selectCountry(e.country);
   if(e.dir!==S.dir) swapDir();
   render(); calc();
-  let bar=$('_undoBar');
-  if(!bar){bar=document.createElement('div');bar.id='_undoBar';document.body.appendChild(bar);}
-  bar.innerHTML=`<span>${e.inp}=${e.out} 불러옴</span><button onclick="undoHist()">↩ 되돌리기</button>`;
-  bar.classList.add('show'); clearTimeout(bar._t); bar._t=setTimeout(()=>bar.classList.remove('show'),4000);
 }
 function undoHist() {
   if(!S._prev)return;
@@ -903,10 +897,7 @@ function fmtT(d) {
   if(diff<1)return '방금 전'; if(diff<60)return `${diff}분 전`;
   return d.toLocaleDateString('ko-KR',{month:'short',day:'numeric'})+' '+d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
 }
-function toast(msg) {
-  const t=$('_toast'); t.textContent=msg; t.classList.add('show');
-  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),2400);
-}
+function toast(msg) { /* 토스트 비활성화 */ }
 
 /* PWA */
 (()=>{
