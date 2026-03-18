@@ -62,11 +62,11 @@ body {
   background: var(--bg); border-radius: 10px;
   padding: 8px 12px; border: 1px solid var(--border);
 }
-.rb-label { font-size: 12px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+.rb-label { font-size: 12px; color: #3A2E1E; font-weight: 800; white-space: nowrap; }
 .fixed-stepper { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: flex-end; }
 .step-input {
   width: 70px; border: none; background: transparent;
-  font-size: 15px; font-weight: 800; color: var(--blue);
+  font-size: 15px; font-weight: 800; color: #1A0F00;
   text-align: center; outline: none; font-family: 'Pretendard', sans-serif;
 }
 .step-input::placeholder { color: var(--muted); }
@@ -82,7 +82,7 @@ body {
 /* 커스텀 드롭다운 */
 .custom-sel { display: flex; align-items: center; gap: 6px; cursor: pointer; }
 .custom-sel #customSelText {
-  font-size: 20px; font-weight: 900; color: var(--text); letter-spacing: -0.5px;
+  font-size: 24px; font-weight: 900; color: var(--text); letter-spacing: -0.5px;
 }
 .custom-options {
   display: none; position: absolute; top: calc(100% + 8px); left: 0;
@@ -172,19 +172,19 @@ body {
 .swap-btn:active { transform: translateY(-50%) scale(0.91); }
 
 .amt-lbl {
-  font-size: 12px; color: var(--muted); font-weight: 600;
+  font-size: 14px; color: var(--muted); font-weight: 700;
   margin-bottom: 6px; flex-shrink: 0; display: flex; align-items: center;
 }
 .amt-val {
   font-size: 34px; font-weight: 900; color: var(--text); letter-spacing: -1px;
   line-height: 1.05; text-align: right; white-space: nowrap;
-  overflow: hidden; text-overflow: ellipsis; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; min-width: 0; padding-right: 0;
 }
 .out-val { color: #4A6741; }
 .amt-korean {
   font-size: 14px; color: #4A6741; font-weight: 700;
   margin-top: 3px; text-align: right; white-space: nowrap;
-  overflow: hidden; text-overflow: ellipsis; padding-right: 44px;
+  overflow: hidden; text-overflow: ellipsis; padding-right: 0;
 }
 .amt-note { font-size: 11px; color: var(--muted); margin-top: 2px; text-align: right; }
 
@@ -203,7 +203,7 @@ body {
 .q-btn.q-minus:active { background: var(--red-dim); transform: scale(0.93); }
 
 /* ── NUMPAD ── */
-.numpad-wrap { flex: 1; padding: 6px 16px 10px; display: flex; flex-direction: column; background: var(--bg); }
+.numpad-wrap { flex: 1; padding: 6px 16px 10px; display: flex; flex-direction: column; background: var(--bg); max-height: 42vh; }
 .numpad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); gap: 6px; }
 .n-btn {
   height: 100%; border-radius: 10px;
@@ -308,7 +308,7 @@ body {
       <span class="rb-label">1,000 KRW =</span>
       <div class="fixed-stepper">
         <button class="step-btn" onclick="stepFixed(-1)">▼</button>
-        <input class="step-input" type="number" id="rbInput" placeholder="0.00" inputmode="decimal" oninput="applyFixed()"/>
+        <input class="step-input" type="text" id="rbInput" placeholder="0" inputmode="decimal" oninput="applyFixed()"/>
         <button class="step-btn" onclick="stepFixed(1)">▲</button>
       </div>
     </div>
@@ -575,7 +575,7 @@ function setMode(m) {
   const inp=$('rbInput');
   const btns=document.querySelectorAll('.step-btn');
   if (m==='fixed') {
-    inp.disabled=false; inp.style.opacity='1'; inp.style.color='#fff';
+    inp.disabled=false; inp.style.opacity='1'; inp.style.color='#1A0F00';
     btns.forEach(b=>{ b.disabled=false; b.style.opacity='1'; });
     $('hFixedRow').style.visibility='visible';
     inp.step=10;
@@ -585,7 +585,7 @@ function setMode(m) {
     }
     inp.value=fmtFixed(S.fixed[S.country]*1000);
   } else {
-    inp.disabled=true; inp.style.opacity='1'; inp.style.color='#fff';
+    inp.disabled=true; inp.style.opacity='1'; inp.style.color='#1A0F00';
     btns.forEach(b=>{ b.disabled=true; b.style.opacity='0.5'; });
     $('hFixedRow').style.visibility='visible';
     inp.value=rate() ? fmtFixed(rate()*1000) : '';
@@ -594,7 +594,8 @@ function setMode(m) {
   if (m==='live' && S.online && !S.rates[S.country]) fetchRate();
 }
 function applyFixed() {
-  const v=parseFloat($('rbInput').value);
+  const raw = $('rbInput').value.replace(/,/g, '');
+  const v=parseFloat(raw);
   if (!v||v<=0) return;
   S.fixed[S.country]=v/1000;
   S.fixedUserSet[S.country]=true;
@@ -652,9 +653,14 @@ function updRateUI() {
 /* 통화별 소수점 표기 헬퍼 */
 function fmtFixed(v1000) {
   const c=cfg();
-  if (c.code==='VND')        return Math.round(v1000).toString();
-  if (c.rateDecimals<=3)     return v1000.toFixed(1);
-  return v1000.toFixed(2);
+  let val;
+  if (c.code==='VND')        val = Math.round(v1000).toString();
+  else if (c.rateDecimals<=3) val = v1000.toFixed(1);
+  else                        val = v1000.toFixed(2);
+  // 천단위 쉼표
+  const parts = val.split('.');
+  parts[0] = Number(parts[0]).toLocaleString('ko-KR');
+  return parts.length > 1 ? parts.join('.') : parts[0];
 }
 
 /* ── 방향 UI — 국가 변경/방향 스왑 모두 호출 ── */
