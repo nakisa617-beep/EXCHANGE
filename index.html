@@ -34,23 +34,22 @@ body {
   color: var(--text); display: flex; flex-direction: column; overflow: hidden;
 }
 
-/* ── HEADER (light) ── */
+/* ── HEADER ── */
 .header {
   flex-shrink: 0;
-  background: var(--bg);
-  padding: 18px 20px 12px;
+  background: var(--white);
+  padding: 8px 16px 8px;
+  border-bottom: 1.5px solid var(--border);
+  box-shadow: 0 2px 8px rgba(15,23,42,0.05);
 }
 .h-top {
-  display: flex; align-items: flex-start; justify-content: space-between;
-  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 6px;
 }
-.h-titles { flex: 1; min-width: 0; }
-.app-sub  {
-  font-size: 10px; color: var(--blue); font-weight: 800;
-  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 2px;
-}
-.app-name { font-size: 26px; font-weight: 900; color: var(--text); letter-spacing: -0.8px; line-height: 1.1; }
-.h-right  { display: flex; align-items: center; gap: 6px; flex-shrink: 0; padding-top: 4px; }
+.h-titles { display: none; } /* 앱 이름 제거 */
+.app-sub { display: none; }
+.app-name { display: none; }
+.h-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-left: auto; }
 
 /* 환율 pill — 우상단 */
 .rate-pill {
@@ -110,21 +109,20 @@ body {
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* 시간 표시 */
-.h-rate-time { font-size: 10px; color: var(--muted); text-align: right; margin-top: 3px; }
+.h-rate-time { font-size: 10px; color: var(--muted); text-align: right; margin-top: 2px; }
 
 /* 나라 선택 드롭다운 */
 .h-country-row { margin-bottom: 12px; }
 .country-sel-wrap { position: relative; }
 .country-sel {
   width: 100%; appearance: none; -webkit-appearance: none;
-  background: #FFFFFF;
+  background: var(--bg);
   border: 1.5px solid var(--border);
-  border-radius: 14px; color: var(--text);
-  font-size: 15px; font-weight: 700;
-  padding: 12px 40px 12px 16px;
+  border-radius: 100px; color: var(--text);
+  font-size: 13px; font-weight: 700;
+  padding: 6px 28px 6px 12px;
   cursor: pointer; outline: none;
   font-family: 'Pretendard', sans-serif;
-  box-shadow: 0 2px 8px rgba(15,23,42,0.08);
 }
 .country-sel option { background: #ffffff; color: #0F172A; }
 .country-arr {
@@ -144,23 +142,22 @@ body {
 /* 고정 환율 행 */
 .h-fixed-row {
   display: flex; align-items: center; gap: 8px;
-  background: var(--white); border-radius: 14px;
-  padding: 10px 14px; border: 1.5px solid var(--border);
-  margin-bottom: 8px; box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  background: var(--bg); border-radius: 100px;
+  padding: 5px 10px 5px 14px; border: 1.5px solid var(--border);
+  margin-bottom: 0;
 }
-.rb-label { font-size: 12px; color: var(--sub); font-weight: 700; white-space: nowrap; }
-.fixed-stepper { display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-end; }
+.rb-label { font-size: 11px; color: var(--sub); font-weight: 700; white-space: nowrap; }
+.fixed-stepper { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: flex-end; }
 .step-input {
-  width: 90px; border: 1.5px solid var(--border); background: var(--bg); border-radius: 8px;
-  padding: 4px 8px; font-size: 15px; font-weight: 800; color: var(--text);
+  width: 80px; border: none; background: transparent;
+  font-size: 14px; font-weight: 800; color: var(--text);
   text-align: center; outline: none; font-family: 'Pretendard', sans-serif;
 }
-.step-input:focus { border-color: var(--blue); background: var(--white); }
 .step-input::-webkit-outer-spin-button, .step-input::-webkit-inner-spin-button { -webkit-appearance: none; }
 .step-btn {
-  width: 30px; height: 30px; border-radius: 8px;
-  background: var(--pill-bg); border: 1.5px solid var(--border);
-  color: var(--blue); font-size: 12px; cursor: pointer;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--white); border: 1.5px solid var(--border);
+  color: var(--blue); font-size: 10px; cursor: pointer;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .step-btn:active { background: var(--blue-dim); }
@@ -169,7 +166,7 @@ body {
 .conv-card-wrap {
   position: relative;
   flex-shrink: 0;
-  margin: 0 16px 10px;
+  margin: 8px 16px 8px;
 }
 /* ── CONVERTER CARD ── */
 .conv-card {
@@ -182,15 +179,14 @@ body {
 
 /* 국기 + 방향 표시줄 */
 .dir-row {
-  display: flex; align-items: center; padding: 10px 16px 10px;
+  display: flex; align-items: center; padding: 10px 16px;
   gap: 10px; border-bottom: 1.5px solid var(--border);
   background: var(--white);
 }
 .dir-flags { display: flex; align-items: center; flex-shrink: 0; }
 .dir-flag {
   width: 22px; height: 22px; border-radius: 50%; overflow: hidden;
-  flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-  border: 2px solid #fff;
+  flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.15); border: 2px solid #fff;
 }
 .dir-flag + .dir-flag { margin-left: -5px; }
 .dir-flag img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -199,8 +195,8 @@ body {
 /* 입력/출력 섹션 */
 .amt-cards { display: flex; flex-direction: column; }
 .amt-row {
-  padding: 18px 20px;
-  height: 110px; display: flex; flex-direction: column;
+  padding: 14px 20px;
+  height: 100px; display: flex; flex-direction: column;
 }
 .amt-row.top { border-radius: 22px 22px 0 0; }
 .amt-row.bot { border-radius: 0 0 22px 22px; background: #F8FAFF; }
@@ -208,11 +204,11 @@ body {
 /* 구분선 */
 .amt-divider { height: 1.5px; background: var(--border); }
 
-/* 스왑 버튼 — 구분선 오른쪽 중간에 걸치게 */
+/* 스왑 버튼 */
 .swap-btn {
   position: absolute;
   right: 16px;
-  top: 110px; /* amt-row.top height */
+  top: 100px;
   transform: translateY(-50%);
   z-index: 10;
   width: 36px; height: 36px; border-radius: 50%;
@@ -220,38 +216,37 @@ body {
   color: #fff; font-size: 16px; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 3px 10px rgba(37,99,235,0.35);
-  flex-shrink: 0;
   transition: transform 0.12s, box-shadow 0.12s;
 }
 .swap-btn:active { transform: translateY(-50%) scale(0.91); box-shadow: 0 1px 4px rgba(37,99,235,0.20); }
 
 .amt-lbl {
-  font-size: 12px; color: var(--muted); font-weight: 700;
-  letter-spacing: 0.3px; text-transform: uppercase; margin-bottom: 6px; flex-shrink: 0;
+  font-size: 13px; color: var(--muted); font-weight: 700;
+  letter-spacing: 0.3px; margin-bottom: 4px; flex-shrink: 0;
   display: flex; align-items: center;
 }
 .amt-val {
-  font-size: 38px; font-weight: 900; color: var(--text); letter-spacing: -1.5px;
+  font-size: 40px; font-weight: 900; color: var(--text); letter-spacing: -1.5px;
   line-height: 1.05; text-align: right; white-space: nowrap;
   overflow: hidden; text-overflow: ellipsis;
 }
 .out-val { color: var(--blue); }
 .amt-korean {
-  font-size: 11px; color: var(--blue); font-weight: 700;
+  font-size: 13px; color: var(--blue); font-weight: 700;
   margin-top: 2px; text-align: right; white-space: nowrap;
   overflow: hidden; text-overflow: ellipsis; opacity: 0.75;
 }
-.amt-note { font-size: 10px; color: var(--muted); margin-top: 2px; text-align: right; }
+.amt-note { font-size: 12px; color: var(--muted); margin-top: 2px; text-align: right; }
 
 /* ── QUICK ── */
 .quick-wrap { flex-shrink: 0; padding: 0 16px 6px; }
 .q-label {
-  font-size: 11px; color: var(--muted); font-weight: 800;
-  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; padding-top: 2px;
+  font-size: 13px; color: var(--muted); font-weight: 800;
+  letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; padding-top: 2px;
 }
 .q-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 5px; }
 .q-btn {
-  padding: 8px 2px; border-radius: 11px; font-size: 13px; font-weight: 700;
+  padding: 9px 2px; border-radius: 11px; font-size: 15px; font-weight: 700;
   cursor: pointer; text-align: center; border: 1.5px solid var(--border);
   transition: transform 0.08s;
 }
@@ -266,27 +261,27 @@ body {
 .n-btn {
   height: 100%; border-radius: 11px;
   border: 1.5px solid var(--border); background: var(--white);
-  color: var(--text); font-size: 18px; font-weight: 600; cursor: pointer;
+  color: var(--text); font-size: 22px; font-weight: 600; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   -webkit-user-select: none; user-select: none;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: transform 0.08s, background 0.08s;
 }
 .n-btn:active { transform: scale(0.91); background: #EEF2FF; border-color: var(--blue); box-shadow: none; }
-.n-btn.del { background: #FEF2F2; color: var(--red); font-size: 16px; border-color: #FECACA; }
+.n-btn.del { background: #FEF2F2; color: var(--red); font-size: 20px; border-color: #FECACA; }
 .n-btn.del:active { background: #FEE2E2; }
-.n-btn.ac  { background: #FEF2F2; color: var(--red); font-size: 12px; font-weight: 800; border-color: #FECACA; }
+.n-btn.ac  { background: #FEF2F2; color: var(--red); font-size: 15px; font-weight: 800; border-color: #FECACA; }
 .n-btn.ac:active  { background: #FEE2E2; }
-.n-btn.triple { background: #EEF2FF; color: var(--blue); font-size: 11px; font-weight: 800; border-color: #C7D2FE; }
+.n-btn.triple { background: #EEF2FF; color: var(--blue); font-size: 14px; font-weight: 800; border-color: #C7D2FE; }
 .n-btn.triple:active { background: var(--blue-dim); border-color: var(--blue); }
 .n-btn.save {
   background: var(--blue); color: #fff;
-  font-size: 11px; font-weight: 800; border-color: var(--blue);
+  font-size: 14px; font-weight: 800; border-color: var(--blue);
   box-shadow: 0 3px 10px rgba(37,99,235,0.28);
 }
 .n-btn.save:active { background: var(--blue-dark); transform: scale(0.96); }
 
 /* ── HISTORY BAR ── */
-.hist-bar-wrap { flex-shrink: 0; height: 64px; padding: 8px 16px 10px; display: flex; align-items: center; gap: 6px; }
+.hist-bar-wrap { flex-shrink: 0; height: 58px; padding: 6px 16px 8px; display: flex; align-items: center; gap: 6px; }
 .hist-arr {
   flex-shrink: 0; width: 24px; height: 28px;
   background: var(--white); border: 1.5px solid var(--border);
@@ -300,7 +295,7 @@ body {
 .hist-bar::-webkit-scrollbar { display: none; }
 .hist-chip {
   flex-shrink: 0; background: var(--white); border: 1.5px solid var(--border);
-  border-radius: 100px; padding: 7px 14px; font-size: 11px; font-weight: 700;
+  border-radius: 100px; padding: 7px 14px; font-size: 13px; font-weight: 700;
   color: var(--sub); white-space: nowrap; cursor: pointer;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; align-items: center;
 }
@@ -335,13 +330,24 @@ body {
 <body>
 
 <div class="header">
+  <!-- 한 줄: 타이틀 + 드롭다운 + pill + 갱신 -->
   <div class="h-top">
     <div class="h-titles">
       <div class="app-sub" id="rateStatusLabel">LIVE RATE</div>
       <div class="app-name">Exchange</div>
     </div>
+    <!-- 나라 선택 드롭다운 (중앙) -->
+    <div class="country-sel-wrap" style="flex:1; margin: 0 8px;">
+      <select class="country-sel" id="countrySel" onchange="selectCountry(this.value)">
+        <option value="vnd">🇻🇳 베트남 동</option>
+        <option value="usd">🇺🇸 미국 달러</option>
+        <option value="cny">🇨🇳 중국 위안</option>
+        <option value="jpy">🇯🇵 일본 엔</option>
+        <option value="eur">🇪🇺 유로</option>
+      </select>
+      <span class="country-arr">▼</span>
+    </div>
     <div class="h-right">
-      <!-- pill: 상태 점 + 모드 셀렉트 -->
       <div class="rate-pill" id="ratePill">
         <span class="rate-pill-dot load" id="sDot"></span>
         <div class="pill-mode-wrap">
@@ -352,33 +358,11 @@ body {
           <span class="pill-mode-arr">▼</span>
         </div>
       </div>
-      <!-- 갱신 -->
       <button class="ref-btn" id="refBtn" onclick="fetchRate()">↻</button>
     </div>
   </div>
 
-  <!-- 나라 선택 드롭다운 -->
-  <div class="h-country-row">
-    <div class="country-sel-wrap">
-      <select class="country-sel" id="countrySel" onchange="selectCountry(this.value)">
-        <option value="vnd">🇻🇳  베트남 동 — VND</option>
-        <option value="usd">🇺🇸  미국 달러 — USD</option>
-        <option value="cny">🇨🇳  중국 위안 — CNY</option>
-        <option value="jpy">🇯🇵  일본 엔 — JPY</option>
-        <option value="eur">🇪🇺  유로 — EUR</option>
-      </select>
-      <span class="country-arr">▼</span>
-    </div>
-  </div>
-
-  <!-- 환율 정보 (숨김 상태 상세) -->
-  <div class="h-rate-row" id="hRateRow" style="display:none;">
-    <div class="h-rate-text" id="sRate"></div>
-    <div class="h-rate-time" id="sTime"></div>
-    <span class="rb-badge" id="rbBadge">📵 오프라인</span>
-  </div>
-
-  <!-- 고정 환율 입력 -->
+  <!-- 환율 조정 바 + 시간 -->
   <div class="h-fixed-row" id="hFixedRow">
     <span class="rb-label">1,000 KRW =</span>
     <div class="fixed-stepper">
@@ -387,7 +371,12 @@ body {
       <button class="step-btn" onclick="stepFixed(1)">▲</button>
     </div>
   </div>
-  <div class="h-rate-time" id="sTime2" style="text-align:right; padding-bottom:2px; min-height:16px;"></div>
+  <div class="h-rate-time" id="sTime2" style="text-align:right; padding-bottom:2px; min-height:14px;"></div>
+
+  <!-- 숨김 요소 (JS 참조용) -->
+  <div id="hRateRow" style="display:none;">
+    <span id="sRate"></span><span id="sTime"></span><span id="rbBadge"></span>
+  </div>
 </div>
 
 <!-- CONVERTER -->
