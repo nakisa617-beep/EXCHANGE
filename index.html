@@ -7,7 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="환율 계산기">
-<meta name="theme-color" content="#1E3A8A">
+<meta name="theme-color" content="#00C4C4">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23008C8C'/><stop offset='100%25' stop-color='%2300DEDE'/></linearGradient></defs><rect width='192' height='192' fill='url(%23g)'/><text y='140' x='96' text-anchor='middle' font-size='130' font-weight='900' font-family='Arial,sans-serif' fill='white'>₩</text></svg>">
 <title>환율 계산기</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
@@ -40,12 +41,12 @@ body {
 .header {
   flex-shrink: 0;
   background: linear-gradient(135deg, #008C8C 0%, #00C4C4 60%, #00DEDE 100%);
-  padding: 10px 20px 10px 16px;
+  padding: 16px 20px 14px 16px;
   box-shadow: 0 4px 16px rgba(0,196,196,0.35);
 }
 .h-top {
   display: flex; align-items: center; gap: 8px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 .h-bottom-row {
   display: flex; align-items: center; gap: 8px;
@@ -205,7 +206,7 @@ body {
 .conv-card-wrap {
   position: relative;
   flex-shrink: 0;
-  margin: 8px 16px 8px;
+  margin: 10px 16px 6px;
 }
 /* ── CONVERTER CARD ── */
 .conv-card {
@@ -234,11 +235,11 @@ body {
 /* 입력/출력 섹션 */
 .amt-cards { display: flex; flex-direction: column; }
 .amt-row {
-  padding: 16px 20px;
-  height: 120px; display: flex; flex-direction: column;
+  padding: 18px 20px;
+  height: 140px; display: flex; flex-direction: column;
 }
 .amt-row.top { border-radius: 22px 22px 0 0; }
-.amt-row.bot { border-radius: 0 0 22px 22px; background: #F8FAFF; }
+.amt-row.bot { border-radius: 0 0 22px 22px; background: #F0FAFA; }
 
 /* 구분선 */
 .amt-divider { height: 1.5px; background: var(--border); }
@@ -247,7 +248,7 @@ body {
 .swap-btn {
   position: absolute;
   right: 16px;
-  top: 120px;
+  top: 140px;
   transform: translateY(-50%);
   z-index: 10;
   width: 36px; height: 36px; border-radius: 50%;
@@ -279,7 +280,7 @@ body {
 .amt-note { font-size: 12px; color: var(--muted); margin-top: 2px; text-align: right; }
 
 /* ── QUICK ── */
-.quick-wrap { flex-shrink: 0; padding: 0 16px 6px; }
+.quick-wrap { flex-shrink: 0; padding: 4px 16px 6px; }
 .q-label { display: none; }
 .q-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 5px; }
 .q-btn {
@@ -903,7 +904,10 @@ function toast(msg) { /* 토스트 비활성화 */ }
 (()=>{
   const m={name:'환율 계산기',short_name:'환율 계산기',start_url:'./',scope:'./',
     display:'standalone',orientation:'portrait',background_color:'#F0F4FF',theme_color:'#1E3A8A',lang:'ko',
-    icons:[{src:`data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%231E3A8A'/><text y='138' x='96' text-anchor='middle' font-size='110'>💱</text></svg>`,sizes:'192x192',type:'image/svg+xml',purpose:'any maskable'}]};
+    icons:[
+      {src:`data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23008C8C'/><stop offset='100%25' stop-color='%2300DEDE'/></linearGradient></defs><rect width='192' height='192' fill='url(%23g)'/><text y='140' x='96' text-anchor='middle' font-size='130' font-weight='900' font-family='Arial,sans-serif' fill='white'>₩</text></svg>`,sizes:'192x192',type:'image/svg+xml',purpose:'any maskable'},
+      {src:`data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23008C8C'/><stop offset='100%25' stop-color='%2300DEDE'/></linearGradient></defs><rect width='512' height='512' fill='url(%23g)'/><text y='380' x='256' text-anchor='middle' font-size='360' font-weight='900' font-family='Arial,sans-serif' fill='white'>₩</text></svg>`,sizes:'512x512',type:'image/svg+xml',purpose:'any maskable'}
+    ]};
   const l=document.createElement('link'); l.rel='manifest';
   l.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/json'}));
   document.head.appendChild(l);
