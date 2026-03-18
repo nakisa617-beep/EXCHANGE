@@ -153,14 +153,14 @@ body {
 
 /* 입력/출력 섹션 */
 .amt-cards { display: flex; flex-direction: column; }
-.amt-row { padding: 16px 20px; height: 130px; display: flex; flex-direction: column; }
+.amt-row { padding: 20px 20px; height: 160px; display: flex; flex-direction: column; }
 .amt-row.top { border-radius: 0; background: var(--white); }
 .amt-row.bot { border-radius: 0; background: var(--bg); }
 .amt-divider { height: 1px; background: var(--border); margin: 0 16px; }
 
 /* 스왑 버튼 */
 .swap-btn {
-  position: absolute; right: 20px; top: 130px;
+  position: absolute; right: 20px; top: 160px;
   transform: translateY(-50%); z-index: 10;
   width: 44px; height: 44px; border-radius: 14px;
   background: #C8956C; border: 3px solid var(--bg);
@@ -193,7 +193,7 @@ body {
 .q-label { display: none; }
 .q-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
 .q-btn {
-  padding: 10px 2px; border-radius: 10px; font-size: 14px; font-weight: 700;
+  padding: 7px 2px; border-radius: 10px; font-size: 13px; font-weight: 700;
   cursor: pointer; text-align: center; border: 1px solid var(--border);
   transition: transform 0.08s;
 }
@@ -203,7 +203,7 @@ body {
 .q-btn.q-minus:active { background: var(--red-dim); transform: scale(0.93); }
 
 /* ── NUMPAD ── */
-.numpad-wrap { flex: 1; padding: 6px 16px 10px; display: flex; flex-direction: column; background: var(--bg); max-height: 42vh; }
+.numpad-wrap { flex: 1; padding: 6px 16px 10px; display: flex; flex-direction: column; background: var(--bg); max-height: 34vh; }
 .numpad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); gap: 6px; }
 .n-btn {
   height: 100%; border-radius: 10px;
@@ -215,11 +215,11 @@ body {
   transition: transform 0.08s, background 0.08s;
 }
 .n-btn:active { transform: scale(0.91); background: #EDE8DF; }
-.n-btn.del { background: var(--white); color: #C8956C; font-size: 20px; border: none; }
+.n-btn.del { background: var(--white); color: #C8956C; font-size: 22px; border: none; }
 .n-btn.del:active { background: #EDE8DF; }
-.n-btn.ac  { background: var(--white); color: #C8956C; font-size: 14px; font-weight: 800; border: none; }
+.n-btn.ac  { background: var(--white); color: #C8956C; font-size: 22px; font-weight: 800; border: none; }
 .n-btn.ac:active { background: #EDE8DF; }
-.n-btn.triple { background: var(--white); color: var(--sub); font-size: 13px; font-weight: 700; border: none; }
+.n-btn.triple { background: var(--white); color: var(--sub); font-size: 18px; font-weight: 700; border: none; }
 .n-btn.triple:active { background: var(--blue-dim); color: var(--blue); }
 .n-btn.save {
   background: #8B7355; color: #fff;
